@@ -1,0 +1,46 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 Hygon Information Technology Co., Ltd.
+
+namespace: kube-system
+
+image:
+  repository: harbor.sourcefind.cn:5443/hcu/admin/base/hcu-label-node
+  tag: v3.0.0
+  pullPolicy: IfNotPresent
+imagePullSecrets: []
+
+# Switches for the labels applied to the node, mapping to hcu-label-node command-line flags
+labels:
+  name: true
+  cuCount: true
+  vram: true
+  # Read from /opt/hyhal/bin/hy-smi --showdriverversion
+  driverVersion: true
+
+log:
+  logtostderr: true
+  stderrthreshold: INFO
+  verbosity: 0
+
+rbac:
+  create: true
+  clusterRoleName: cr-node-labeller
+  clusterRoleBindingName: labeller
+
+serviceAccount:
+  create: true
+  name: node-labeller-sa
+
+# The component reads /dev and /opt/hyhal, so it must run in privileged mode
+privileged: true
+
+tolerations:
+  - key: CriticalAddonsOnly
+    operator: Exists
+
+nodeSelector: {}
+affinity: {}
+resources: {}
+
+updateStrategy:
+  type: RollingUpdate

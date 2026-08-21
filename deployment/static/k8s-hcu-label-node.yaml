@@ -1,0 +1,82 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 Hygon Information Technology Co., Ltd.
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: cr-node-labeller
+rules:
+  - apiGroups: [""]
+    resources: ["nodes"]
+    verbs: ["watch", "get", "list", "update"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: labeller
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cr-node-labeller
+subjects:
+  - kind: ServiceAccount
+    name: node-labeller-sa
+    namespace: kube-system
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: node-labeller-sa
+  namespace: kube-system
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: hcu-label-node
+  namespace: kube-system
+spec:
+  updateStrategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      name: hcu-label-node
+  template:
+    metadata:
+      labels:
+        name: hcu-label-node
+    spec:
+      serviceAccountName: node-labeller-sa
+      tolerations:
+        - key: CriticalAddonsOnly
+          operator: Exists
+      containers:
+        - image: harbor.sourcefind.cn:5443/hcu/admin/base/hcu-label-node:v3.0.0
+          name: hcu-label-node-cntr
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            privileged: true
+          command: [ "./hcu-label-node" ]
+          args: [ "-name", "-cu-count", "-vram", "-driver-version", "-logtostderr=true", "-stderrthreshold=INFO", "-v=0"]
+          env:
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          volumeMounts:
+            - name: dev
+              mountPath: /dev
+            - name: local
+              mountPath: /usr/local
+            - name: opt
+              mountPath: /opt
+              readOnly: true
+      volumes:
+        - name: dev
+          hostPath:
+            path: /dev
+        - name: local
+          hostPath:
+            path: /usr/local
+        - name: opt
+          hostPath:
+            path: /opt
