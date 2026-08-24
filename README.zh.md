@@ -75,13 +75,13 @@ HCU Label Node 是一个 Kubernetes DaemonSet 组件，部署到集群各节点�
 
 ## 前置要求
 
-| 项目 | 说明 |
-|------|------|
-| Kubernetes 集群 | 已就绪，且 DaemonSet 可调度到目标节点 |
-| HCU 驱动 | 节点已安装 HCU 驱动，可执行 `/opt/hyhal/bin/hy-smi` |
-| hyhal | 节点存在 `/opt/hyhal` 目录（含 `bin/hy-smi` 与用户态库） |
+| 项目 | 说明                                                       |
+|------|----------------------------------------------------------|
+| Kubernetes 集群 | 已就绪，且 DaemonSet 可调度到目标节点                                 |
+| HCU 驱动 | 节点已安装 HCU 驱动，可执行 `/opt/hyhal/bin/hy-smi`                 |
+| hyhal | 节点存在 `/opt/hyhal` 目录（含 `bin/hy-smi` 与用户态库）               |
 | RBAC | 组件需要对 `nodes` 资源的 `get` / `list` / `watch` / `update` 权限 |
-| 构建环境（自行编译时） | Linux 宿主机，CGO 开启，具备 dcgm-dcu 编译依赖 |
+| 构建环境（自行编译时） | Linux 宿主机，CGO 开启，具备 hcu-dcgm 编译依赖                        |
 
 ## 快速开始
 
@@ -294,3 +294,8 @@ This project is licensed under the Apache License, Version 2.0.
 Copyright 2026 Hygon Information Technology Co., Ltd.
 
 See [LICENSE](LICENSE) and [NOTICE](NOTICE) for details.
+
+`go.mod` 中声明的第三方 Go 模块依赖已逐项登记于
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)，含各依赖的仓库地址、固定版本、许可证与版权声明。
+所有依赖均为宽松型许可证（Apache-2.0 / BSD-3-Clause / MIT / ISC），与本项目兼容。
+该文件仅作索引，各依赖的许可证与版权原文以其包内文件为准。

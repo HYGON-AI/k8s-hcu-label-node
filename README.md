@@ -75,13 +75,13 @@ Deploying this component before the device-plugin is recommended, so that HCU no
 
 ## Prerequisites
 
-| Item | Description |
-|------|-------------|
-| Kubernetes cluster | Ready, and able to schedule the DaemonSet onto the target nodes |
-| HCU driver | The HCU driver is installed on the node and `/opt/hyhal/bin/hy-smi` is executable |
+| Item | Description                                                                                  |
+|------|----------------------------------------------------------------------------------------------|
+| Kubernetes cluster | Ready, and able to schedule the DaemonSet onto the target nodes                              |
+| HCU driver | The HCU driver is installed on the node and `/opt/hyhal/bin/hy-smi` is executable            |
 | hyhal | The node has an `/opt/hyhal` directory (containing `bin/hy-smi` and the userspace libraries) |
-| RBAC | The component needs `get` / `list` / `watch` / `update` permissions on the `nodes` resource |
-| Build environment (when building yourself) | A Linux host with CGO enabled and the dcgm-dcu build dependencies |
+| RBAC | The component needs `get` / `list` / `watch` / `update` permissions on the `nodes` resource  |
+| Build environment (when building yourself) | A Linux host with CGO enabled and the hcu-dcgm build dependencies                            |
 
 ## Quick Start
 
@@ -293,3 +293,9 @@ This project is licensed under the Apache License, Version 2.0.
 Copyright 2026 Hygon Information Technology Co., Ltd.
 
 See [LICENSE](LICENSE) and [NOTICE](NOTICE) for details.
+
+Third-party Go module dependencies declared in `go.mod` are itemized in
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md), which records the repository, pinned version,
+license and copyright notice of each dependency. All of them are permissive licenses
+(Apache-2.0 / BSD-3-Clause / MIT / ISC) compatible with this project. That file is an index only:
+the authoritative license and copyright text is the one shipped inside each dependency.
