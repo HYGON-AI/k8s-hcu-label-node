@@ -8,7 +8,7 @@ go 1.22.0
 toolchain go1.22.4
 
 require (
-	github.com/HYGON-AI/hcu-dcgm/v3 v3.0.0
+	github.com/HYGON-AI/hcu-dcgm/v3 v3.0.1
 	github.com/golang/glog v1.2.2
 	k8s.io/api v0.30.2
 	k8s.io/apimachinery v0.30.2
