@@ -37,7 +37,7 @@
 （2）如果出现报错信息
 
 ```
-Internal error occurred: failed calling webhook "hcu.sugon.com": Post https://admission-webhook-hcu-svc.kube-system.svc:443/mutate?timeout=10s: service "admission-webhook-hcu-svc" not found
+Internal error occurred: failed calling webhook "hcu.hygon.com": Post https://admission-webhook-hcu-svc.kube-system.svc:443/mutate?timeout=10s: service "admission-webhook-hcu-svc" not found
 ```
 
 a.首先检查vhcu-admission-webhook是否与所在宿主机共用网络，宿主机443端口是否被占用；
