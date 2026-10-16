@@ -1,5 +1,5 @@
-github.com/HYGON-AI/hcu-dcgm/v3 v3.0.0 h1:Y7RZvxypjX3KWyXASjB6DNHj7KIAcZ+5b1KqTTnvIPQ=
-github.com/HYGON-AI/hcu-dcgm/v3 v3.0.0/go.mod h1:jmcvulxkMznHsMwKiaHqFFqRNTklvHu4h1wcNiD4HMQ=
+github.com/HYGON-AI/hcu-dcgm/v3 v3.0.1 h1:x73CkkU6oemj/ypLr7ZVfb2cqWDiYTwJX9NxrZzq16A=
+github.com/HYGON-AI/hcu-dcgm/v3 v3.0.1/go.mod h1:jmcvulxkMznHsMwKiaHqFFqRNTklvHu4h1wcNiD4HMQ=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
