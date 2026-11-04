@@ -50,7 +50,7 @@ spec:
         - key: CriticalAddonsOnly
           operator: Exists
       containers:
-        - image: harbor.sourcefind.cn:5443/hcu/admin/base/hcu-label-node:v3.0.0
+        - image: harbor.sourcefind.cn:5443/hcu/admin/base/hcu-label-node:v3.0.1
           name: hcu-label-node-cntr
           imagePullPolicy: IfNotPresent
           securityContext:
@@ -58,6 +58,8 @@ spec:
           command: [ "./hcu-label-node" ]
           args: [ "-name", "-cu-count", "-vram", "-driver-version", "-logtostderr=true", "-stderrthreshold=INFO", "-v=0"]
           env:
+            - name: LABEL_PREFIX
+              value: "hygon.com/hcu"
             - name: NODE_NAME
               valueFrom:
                 fieldRef:

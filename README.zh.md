@@ -4,9 +4,9 @@
 
 HCU Label Node 是一个 Kubernetes DaemonSet 组件，部署到集群各节点后自动检测 HCU 硬件与驱动，并为 **含有 HCU 的节点** 打上标准化标签，供 [k8s-hcu-device-plugin](../k8s-hcu-device-plugin)、调度器及其他组件做节点筛选与资源发现。
 
-当前版本：**v3.0.0**
+当前版本：**v3.0.1**
 
-默认镜像：`harbor.sourcefind.cn:5443/hcu/admin/base/hcu-label-node:v3.0.0`
+默认镜像：`harbor.sourcefind.cn:5443/hcu/admin/base/hcu-label-node:v3.0.1`
 
 ## 功能特性
 
@@ -124,7 +124,7 @@ kubectl apply -f deployment/static/k8s-hcu-label-node.yaml
 ```bash
 helm install hcu-label-node deployment/helm/hcu-label-node \
   -n kube-system \
-  --set image.tag=v3.0.0
+  --set image.tag=v3.0.1
 ```
 
 Helm Chart 与静态清单渲染结果一致（镜像、启动参数、挂载卷、RBAC 规则相同），
@@ -133,7 +133,7 @@ Helm Chart 与静态清单渲染结果一致（镜像、启动参数、挂载卷
 | 配置项 | 默认值 | 说明 |
 |--------|--------|------|
 | `namespace` | `kube-system` | 部署命名空间 |
-| `image.tag` | `v3.0.0` | 镜像 tag |
+| `image.tag` | `v3.0.1` | 镜像 tag |
 | `labels.name` / `labels.cuCount` / `labels.vram` | `true` | 对应 `-name` / `-cu-count` / `-vram` |
 | `labels.driverVersion` | `true` | 对应 `-driver-version` |
 | `log.verbosity` | `0` | 对应 `-v` |
@@ -192,6 +192,7 @@ HCU not exists in this node, idle
 | `-cu-count` | `false` | 写入 `hygon.com/hcu.cu-count` |
 | `-vram` | `false` | 写入 `hygon.com/hcu.vram` |
 | `-driver-version` | `false` | 写入 `hygon.com/hcu.driver-version` |
+| `LABEL_PREFIX`（环境变量） | `hygon.com/hcu` | 标签前缀，其余标签为 `<前缀>.name` 等；需与 device-plugin DaemonSet 的 `nodeAffinity` 保持一致 |
 | `-kubeconfig` | `/root/.kube/config` | 集群外调试时使用；文件不存在时自动走 InClusterConfig |
 | `-logtostderr` | — | glog 输出到 stderr（镜像默认开启） |
 | `-stderrthreshold` | — | 日志级别阈值（镜像默认 `INFO`） |

@@ -60,6 +60,8 @@ spec:
           - "-stderrthreshold={{ .Values.log.stderrthreshold }}"
           - "-v={{ .Values.log.verbosity }}"
         env:
+          - name: LABEL_PREFIX
+            value: {{ quote .Values.labelPrefix }}
           - name: NODE_NAME
             valueFrom:
               fieldRef:
