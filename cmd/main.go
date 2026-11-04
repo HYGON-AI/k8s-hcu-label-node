@@ -9,6 +9,7 @@ import (
 	"bytes"
 	"context"
 	"flag"
+	"fmt"
 	"math"
 	"os"
 	"os/exec"
@@ -24,10 +25,29 @@ import (
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/fields"
+	"k8s.io/apimachinery/pkg/util/validation"
 	"k8s.io/apimachinery/pkg/watch"
 )
 
-var labelPrefix = "hygon.com/hcu"
+const defaultLabelPrefix = "hygon.com/hcu"
+
+// labelPrefix is the node label key prefix, overridable via LABEL_PREFIX.
+var labelPrefix = defaultLabelPrefix
+
+// initLabelPrefix reads LABEL_PREFIX and checks that every label key derived from it is valid.
+func initLabelPrefix() error {
+	prefix := strings.TrimSpace(os.Getenv("LABEL_PREFIX"))
+	if prefix == "" {
+		return nil
+	}
+	for _, key := range []string{prefix, prefix + ".name", prefix + ".cu-count", prefix + ".vram", prefix + ".driver-version"} {
+		if errs := validation.IsQualifiedName(key); len(errs) > 0 {
+			return fmt.Errorf("invalid LABEL_PREFIX %q: label key %q: %s", prefix, key, strings.Join(errs, "; "))
+		}
+	}
+	labelPrefix = prefix
+	return nil
+}
 
 func idleForever() {
 	select {}
@@ -110,6 +130,11 @@ func main() {
 	var driverVersion = flag.Bool("driver-version", false, "HCU driver version label is required")
 	flag.Parse()
 	defer glog.Flush()
+
+	if err := initLabelPrefix(); err != nil {
+		glog.Exitln(err)
+	}
+	glog.Infoln("Label prefix: ", labelPrefix)
 
 	if !checkHCUStatus() {
 		glog.Infoln("HCU not exists in this node, idle")

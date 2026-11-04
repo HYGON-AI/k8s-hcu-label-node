@@ -5,9 +5,12 @@ namespace: kube-system
 
 image:
   repository: harbor.sourcefind.cn:5443/hcu/admin/base/hcu-label-node
-  tag: v3.0.0
+  tag: v3.0.1
   pullPolicy: IfNotPresent
 imagePullSecrets: []
+
+# Node label key prefix (env LABEL_PREFIX). Keep it consistent with the nodeAffinity of the other components
+labelPrefix: hygon.com/hcu
 
 # Switches for the labels applied to the node, mapping to hcu-label-node command-line flags
 labels:

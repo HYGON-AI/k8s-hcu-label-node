@@ -4,9 +4,9 @@ English | [简体中文](README.zh.md)
 
 HCU Label Node is a Kubernetes DaemonSet component. Once deployed to the nodes of a cluster it automatically detects HCU hardware and drivers, and applies standardized labels to **nodes that contain an HCU**, so that [k8s-hcu-device-plugin](../k8s-hcu-device-plugin), the scheduler and other components can perform node filtering and resource discovery.
 
-Current version: **v3.0.0**
+Current version: **v3.0.1**
 
-Default image: `harbor.sourcefind.cn:5443/hcu/admin/base/hcu-label-node:v3.0.0`
+Default image: `harbor.sourcefind.cn:5443/hcu/admin/base/hcu-label-node:v3.0.1`
 
 ## Features
 
@@ -124,7 +124,7 @@ The manifest creates:
 ```bash
 helm install hcu-label-node deployment/helm/hcu-label-node \
   -n kube-system \
-  --set image.tag=v3.0.0
+  --set image.tag=v3.0.1
 ```
 
 The Helm chart renders the same result as the static manifest (identical image, startup arguments, volume mounts and RBAC rules), and additionally allows the label switches, log level and scheduling policy to be adjusted through `values.yaml`:
@@ -132,7 +132,7 @@ The Helm chart renders the same result as the static manifest (identical image, 
 | Setting | Default | Description |
 |---------|---------|-------------|
 | `namespace` | `kube-system` | Deployment namespace |
-| `image.tag` | `v3.0.0` | Image tag |
+| `image.tag` | `v3.0.1` | Image tag |
 | `labels.name` / `labels.cuCount` / `labels.vram` | `true` | Map to `-name` / `-cu-count` / `-vram` |
 | `labels.driverVersion` | `true` | Maps to `-driver-version` |
 | `log.verbosity` | `0` | Maps to `-v` |
@@ -191,6 +191,7 @@ All labels are submitted in a single `Update` request and retried automatically 
 | `-cu-count` | `false` | Writes `hygon.com/hcu.cu-count` |
 | `-vram` | `false` | Writes `hygon.com/hcu.vram` |
 | `-driver-version` | `false` | Writes `hygon.com/hcu.driver-version` |
+| `LABEL_PREFIX` (env) | `hygon.com/hcu` | Label key prefix; the other label keys are `<prefix>.name` etc. Must match the `nodeAffinity` of the device-plugin DaemonSet |
 | `-kubeconfig` | `/root/.kube/config` | Used when debugging from outside the cluster; falls back to InClusterConfig when the file does not exist |
 | `-logtostderr` | — | glog writes to stderr (enabled by default in the image) |
 | `-stderrthreshold` | — | Log level threshold (`INFO` by default in the image) |
