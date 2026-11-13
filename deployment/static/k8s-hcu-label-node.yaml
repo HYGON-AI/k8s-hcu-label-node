@@ -50,7 +50,7 @@ spec:
         - key: CriticalAddonsOnly
           operator: Exists
       containers:
-        - image: harbor.sourcefind.cn:5443/hcu/admin/base/hcu-label-node:v3.0.1
+        - image: harbor.sourcefind.cn:5443/hcu/admin/base/hcu-label-node:v3.0.2
           name: hcu-label-node-cntr
           imagePullPolicy: IfNotPresent
           securityContext:

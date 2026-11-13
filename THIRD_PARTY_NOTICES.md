@@ -21,7 +21,7 @@ Copyright 2026 Hygon Information Technology Co., Ltd.
 
 ### github.com/HYGON-AI/hcu-dcgm/v3
 - 项目/仓库：https://github.com/HYGON-AI/hcu-dcgm
-- 固定版本：v3.0.0
+- 固定版本：v3.0.2
 - 许可证：Apache-2.0
 - 本地路径：vendor/github.com/HYGON-AI/hcu-dcgm/v3
 - 版权声明：Copyright (c) 2026 Hygon Information Technology Co., Ltd.; Copyright 2016-2019 by SW Group, Chengdu Haiguang IC Design Co., Ltd.; Copyright 2014 Advanced Micro Devices, Inc.

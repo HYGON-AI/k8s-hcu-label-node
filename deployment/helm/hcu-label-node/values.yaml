@@ -5,7 +5,7 @@ namespace: kube-system
 
 image:
   repository: harbor.sourcefind.cn:5443/hcu/admin/base/hcu-label-node
-  tag: v3.0.1
+  tag: v3.0.2
   pullPolicy: IfNotPresent
 imagePullSecrets: []
 
